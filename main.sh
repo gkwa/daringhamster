@@ -11,7 +11,8 @@ incus exec airflow-test -- task --dir=/opt/ringgem install-uv-on-linux
 
 cat >install.sh <<'EOF'
 #!/usr/bin/env bash
-AIRFLOW_VERSION=3.0.2
+AIRFLOW_VERSION="$(uv tool run --from 'apache-airflow[celery]' --python python3 -- python -c 'import airflow; print(airflow.__version__)')"
+echo AIRFLOW_VERSION=$AIRFLOW_VERSION
 PYTHON_VERSION=3.12
 
 type -a deactivate >/dev/null 2>&1 && deactivate
