@@ -8,7 +8,7 @@ rm -rf .venv
 rm -rf airflow/
 
 export PATH="$HOME/.local/bin:$PATH"
-uv venv
+uv venv --python python${PYTHON_VERSION}
 
 # shellcheck disable=SC1091
 source .venv/bin/activate
