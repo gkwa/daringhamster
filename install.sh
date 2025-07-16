@@ -17,6 +17,7 @@ CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${A
 uv pip install "apache-airflow[celery]==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
 uv pip install apache-airflow-providers-fab
 uv pip install pandas
+uv pip install graphviz
 
 airflow version
 
