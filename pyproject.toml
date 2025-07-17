@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "airflow-dev"
+version = "0.1.0"
+description = "Development environment for Apache Airflow"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "apache-airflow[celery]",
+    "apache-airflow-providers-fab",
+    "pandas",
+    "graphviz",
+]
