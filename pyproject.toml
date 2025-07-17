@@ -5,8 +5,8 @@ description = "Development environment for Apache Airflow"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-   "apache-airflow[celery]",
-   "apache-airflow-providers-fab",
-   "pandas",
-   "graphviz",
+    "apache-airflow[celery]==3.0.3",
+    "apache-airflow-providers-fab",
+    "pandas==2.2.3",
+    "graphviz==0.21",
 ]
