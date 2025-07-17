@@ -2,7 +2,6 @@
 set -e
 
 PYTHON_VERSION=3.12
-
 AIRFLOW_VERSION="$(uv tool run --from 'apache-airflow[celery]' --python python3 -- python -c 'import airflow; print(airflow.__version__)')"
 echo "AIRFLOW_VERSION=$AIRFLOW_VERSION"
 
@@ -11,14 +10,13 @@ type -a deactivate >/dev/null 2>&1 && deactivate
 rm -rf .venv
 rm -rf airflow/
 
-# Create environment
+# Create environment and install dependencies from pyproject.toml
 export PATH="$HOME/.local/bin:$PATH"
-uv venv --python python${PYTHON_VERSION}
-source .venv/bin/activate
-
-# Install with constraints
 CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
-uv pip install --constraint "${CONSTRAINT_URL}" -e .
+uv sync --constraint "${CONSTRAINT_URL}"
+
+# Activate the environment
+source .venv/bin/activate
 
 # Configure Airflow
 cat >airflow.cfg <<EOF
