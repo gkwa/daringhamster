@@ -3,7 +3,7 @@ set -e
 
 PYTHON_VERSION=3.12
 
-AIRFLOW_VERSION="$(uv tool run --python=${PYTHON_VERSION} --from 'apache-airflow[celery]' -- python -c 'import airflow; print(airflow.__version__)')"
+AIRFLOW_VERSION="$(uv tool run --python=${PYTHON_VERSION} --from apache-airflow -- python -c 'import airflow; print(airflow.__version__)')"
 echo AIRFLOW_VERSION=$AIRFLOW_VERSION
 
 # Clean up
