@@ -10,13 +10,17 @@ type -a deactivate >/dev/null 2>&1 && deactivate
 rm -rf .venv
 rm -rf airflow/
 
-# Create environment and install dependencies from pyproject.toml
+# Create environment
 export PATH="$HOME/.local/bin:$PATH"
-CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
-uv sync --constraint "${CONSTRAINT_URL}"
-
-# Activate the environment
+uv venv --python python${PYTHON_VERSION}
 source .venv/bin/activate
+
+# Install dependencies with constraints
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+uv pip install --constraint "${CONSTRAINT_URL}" "apache-airflow[celery]==${AIRFLOW_VERSION}"
+uv pip install --constraint "${CONSTRAINT_URL}" apache-airflow-providers-fab
+uv pip install --constraint "${CONSTRAINT_URL}" pandas
+uv pip install --constraint "${CONSTRAINT_URL}" graphviz
 
 # Configure Airflow
 cat >airflow.cfg <<EOF
