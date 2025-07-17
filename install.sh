@@ -18,7 +18,7 @@ source .venv/bin/activate
 
 # Install with constraints
 CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
-uv pip install --constraint "${CONSTRAINT_URL}" -e .
+uv pip install --constraint "${CONSTRAINT_URL}"
 
 # Configure Airflow
 cat >airflow.cfg <<EOF
