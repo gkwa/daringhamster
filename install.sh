@@ -9,7 +9,6 @@ rm -rf .venv
 rm -rf airflow/
 
 # Create environment and install dependencies from pyproject.toml
-export PATH="$HOME/.local/bin:$PATH"
 uv sync
 
 # Activate the environment
