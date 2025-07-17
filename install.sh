@@ -30,7 +30,7 @@ EOF
 airflow version
 airflow config get-value core auth_manager
 airflow db migrate
-airflow providers list | grep fab
+airflow providers list
 
 echo "Setup complete! Check /root/airflow/simple_auth_manager_passwords.json.generated for auto-generated passwords"
 echo "To start: airflow api-server --port 8080"
