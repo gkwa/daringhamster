@@ -3,18 +3,24 @@ set -e
 
 PYTHON_VERSION=3.12
 
+AIRFLOW_VERSION="$(uv tool run --python=${PYTHON_VERSION} --from 'apache-airflow[celery]' -- python -c 'import airflow; print(airflow.__version__)')"
+echo AIRFLOW_VERSION=$AIRFLOW_VERSION
+
 # Clean up
 type -a deactivate >/dev/null 2>&1 && deactivate
 rm -rf .venv
 rm -rf airflow/
 
-# Create environment and install dependencies from pyproject.toml
-uv sync
+uv venv --python=${PYTHON_VERSION}
 
 # Activate the environment
+# shellcheck disable=SC1091
 source .venv/bin/activate
 
 # Configure Airflow
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+uv pip install "apache-airflow[celery]==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+
 cat >airflow.cfg <<EOF
 [core]
 auth_manager = airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
