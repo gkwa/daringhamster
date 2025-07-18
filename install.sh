@@ -19,7 +19,7 @@ source .venv/bin/activate
 
 # Configure Airflow
 CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
-uv pip install "apache-airflow[celery]==${AIRFLOW_VERSION}" graphviz pandas --constraint "${CONSTRAINT_URL}"
+uv pip install "apache-airflow[cncf.kubernetes,celery]==${AIRFLOW_VERSION}" graphviz pandas --constraint "${CONSTRAINT_URL}"
 
 cat >airflow.cfg <<EOF
 [core]
