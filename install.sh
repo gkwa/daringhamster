@@ -24,6 +24,9 @@ uv pip install "apache-airflow[celery]==${AIRFLOW_VERSION}" graphviz pandas --co
 cat >airflow.cfg <<EOF
 [core]
 auth_manager = airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+executor = LocalExecutor
+parallelism = 16  # Max number of task instances that can run simultaneously
+max_active_runs_per_dag = 16  # Max active DAG runs per DAG
 EOF
 
 # Initialize
